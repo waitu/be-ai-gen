@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, File, UploadFile, Form
+from fastapi import FastAPI, Request, File, UploadFile, Form, Header
 from fastapi.responses import RedirectResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from google_auth_oauthlib.flow import Flow
@@ -42,6 +42,7 @@ async def generate_image(
     negative_prompt: str = Form("low quality, bad quality, sketches"),
     num_inference_steps: int = Form(50),
     replicate_model_version: str = Form(...),
+    authorization: str = Header(None)
 ):
     # Lưu file tạm
     temp_path = f"temp_{image.filename}"
@@ -56,11 +57,14 @@ async def generate_image(
             {"error": "Không upload được ảnh lên imgbb"}, status_code=400
         )
 
+    if not authorization:
+        return JSONResponse({"error": "Thiếu Authorization header"}, status_code=400)
+
     # Gọi API Replicate
     response = requests.post(
         "https://api.replicate.com/v1/predictions",
         headers={
-            "Authorization": f"Bearer r8_bGaSHGCkmoIWW5eWcrjsxWVQLretU5G3XicUH",
+            "Authorization": authorization,
             "Content-Type": "application/json",
             "Prefer": "wait",
         },
