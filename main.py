@@ -49,7 +49,7 @@ def poll_replicate_prediction(get_url, authorization, max_wait=60):
     return data  # timeout
 
 
-@app.post("/generate")
+@app.post("/api/generate")
 async def generate_image(
     image: UploadFile = File(...),
     prompt: str = Form(...),
@@ -145,7 +145,7 @@ async def home():
     return {"ok"}
 
 
-@app.post("/generate-text2img")
+@app.post("/api/generate-text2img")
 async def generate_text2img(
     prompt: str = Form(...),
     replicate_model_version: str = Form(...),
