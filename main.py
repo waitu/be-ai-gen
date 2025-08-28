@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 
-IMGBB_API_KEY = "38d1d53329270b32a5c0f35cc034618d"  # Thay bằng API key imgbb của bạn
+IMGBB_API_KEY = "9639069f4f083f9ad21f352e5ddaf045"  # Thay bằng API key imgbb của bạn
 
 REPLICATE_MODEL_VERSION = "lucataco/sdxl-controlnet:06d6fae3b75ab68a28cd2900afa6033166910dd09fd9751047043a5bbb4c184b"
 
